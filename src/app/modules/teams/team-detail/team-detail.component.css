@@ -1,0 +1,79 @@
+.team-detail-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
+  color: #0d47a1;
+}
+
+.team-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 32px;
+}
+
+.team-meta p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-title {
+  font-size: 16px;
+  margin: 24px 0 12px;
+  font-weight: 600;
+  color: #333;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.list li {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+mat-icon {
+  font-size: 18px;
+  color: #666;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32px 0 16px;
+}
+
+.btn-nova-tarefa {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 16px;
+  text-transform: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.btn-nova-tarefa mat-icon {
+  font-size: 20px;
+  margin-right: 4px;
+}

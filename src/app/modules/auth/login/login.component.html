@@ -1,0 +1,24 @@
+<div class="login-card">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="seuemail@example.com">
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password" type="password" placeholder="********">
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">
+        Entrar
+      </button>
+    </form>
+
+    <div class="register-link">
+        <span>Não tem uma conta?</span>
+        <a (click)="goToRegister()">Crie uma agora</a>
+      </div>
+  </div>
+  

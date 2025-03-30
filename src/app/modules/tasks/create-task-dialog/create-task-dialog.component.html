@@ -1,0 +1,45 @@
+<h2>Nova Tarefa</h2>
+
+<form (ngSubmit)="createTask()" #form="ngForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Título</mat-label>
+    <input matInput [(ngModel)]="task.title" name="title" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Descrição</mat-label>
+    <textarea matInput [(ngModel)]="task.description" name="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Prioridade</mat-label>
+    <mat-select [(ngModel)]="task.priority" name="priority">
+      <mat-option value="Baixa">Baixa</mat-option>
+      <mat-option value="Média">Média</mat-option>
+      <mat-option value="Alta">Alta</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="task.status" name="status">
+      <mat-option value="Pendente">Pendente</mat-option>
+      <mat-option value="Em progresso">Em progresso</mat-option>
+      <mat-option value="Finalizado">Finalizado</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Responsável</mat-label>
+    <mat-select [(ngModel)]="task.responsibleId" name="responsibleId">
+      <mat-option *ngFor="let user of data.users" [value]="user.id">
+        {{ user.email }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="buttons">
+    <button mat-stroked-button type="button" (click)="close()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Criar</button>
+  </div>
+</form>

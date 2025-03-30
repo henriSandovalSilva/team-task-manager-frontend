@@ -1,0 +1,20 @@
+<div class="teams-header">
+  <button mat-raised-button color="primary" (click)="openCreateTeamDialog()">
+    <mat-icon>add</mat-icon>
+    Novo Time
+  </button>
+</div>
+
+<mat-list>
+  <mat-list-item *ngFor="let team of teams" (click)="goToTeam(team.id)" class="team-list-item">
+    <div class="team-info">
+      <h4>{{ team.name }}</h4>
+      <p class="meta">
+        <mat-icon inline class="meta-icon">person</mat-icon>
+        {{ team.createdBy?.email || '—' }} |
+        {{ team.users?.length || 0 }} usuários |
+        {{ team.tasks?.length || 0 }} tarefas
+      </p>
+    </div>
+  </mat-list-item>
+</mat-list>

@@ -1,0 +1,94 @@
+.teams-container {
+    padding: 24px;
+    max-width: 850px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  }
+  
+  .teams-container h2 {
+    margin-bottom: 24px;
+    font-size: 24px;
+    color: #1e1e1e;
+    font-weight: 600;
+  }
+  
+  mat-list {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+  }
+  
+  .team-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    height: 100%;
+  }
+  
+  .team-list-item:hover {
+    background-color: #f9fcff;
+  }
+  
+  .team-info {
+    flex: 1;
+  }
+  
+  .team-info h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #0d47a1;
+    letter-spacing: 0.3px;
+  }
+  
+  .meta {
+    font-size: 13px;
+    color: #666;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .meta-icon {
+    font-size: 16px;
+    vertical-align: middle;
+    color: #888;
+  }
+  
+  .task-preview {
+    font-size: 13px;
+    color: #444;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .edit-inline {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+  }
+  
+  .edit-inline input {
+    max-width: 150px;
+  }
+  
+  .teams-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .teams-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #1e1e1e;
+  }

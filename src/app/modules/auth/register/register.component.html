@@ -1,0 +1,24 @@
+<div class="register-card">
+    <h2>Criar Conta</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="seuemail@example.com">
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="********">
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" class="register-btn" [disabled]="registerForm.invalid">
+        Criar Conta
+      </button>
+    </form>
+  
+    <div class="login-link">
+      <span>Já tem uma conta?</span>
+      <a (click)="goToLogin()">Entrar</a>
+    </div>
+  </div>
+  
