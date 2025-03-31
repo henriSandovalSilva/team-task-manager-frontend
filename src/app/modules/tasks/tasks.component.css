@@ -1,0 +1,51 @@
+.task-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 24px 0 12px;
+  }
+
+.section-title {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 600;
+    color: #333;
+  }
+
+.btn-nova-tarefa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  color: #666 !important;
+  line-height: 1;
+  margin-left: 10px;
+}
+
+.btn-nova-tarefa mat-icon {
+  font-size: 20px;
+  color: #666;
+  margin-right: 1px;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px;
+}
+
+.list li {
+    padding: 2px 5px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}

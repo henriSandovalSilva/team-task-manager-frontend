@@ -1,0 +1,65 @@
+<h2>{{ task.title }}</h2>
+
+<div class="task-detail-field">
+  <strong>Descrição:</strong>
+  <p>{{ task.description || '—' }}</p>
+</div>
+
+<div class="task-detail-field">
+  <strong>Prioridade:</strong>
+  <p>{{ task.priority }}</p>
+</div>
+
+<div class="task-detail-field status-section">
+    <strong>Status atual:</strong>
+    <div class="status-display">
+      <span class="status-badge"
+      [ngClass]="{
+        'pendente': task.status === 'Pendente',
+        'em-progresso': task.status === 'Em progresso',
+        'finalizado': task.status === 'Finalizado'
+      }">{{ task.status }}</span>
+  
+  
+      <button
+      *ngIf="task.status !== 'Finalizado'"
+      mat-button
+      color="primary"
+      class="btn-avancar-status"
+      (click)="avancarStatus()"
+    >
+      {{ getStatusButtonText(task.status) }}
+    </button>
+    
+    </div>
+  </div>
+  
+
+<div class="task-detail-field">
+  <strong>Responsável:</strong>
+  <p>{{ task.responsible.email }}</p>
+</div>
+
+<h3>Comentários</h3>
+<ul class="comments-list">
+    <li *ngFor="let comment of task.comments">
+      <mat-icon>comment</mat-icon>
+      <div class="comment-content">
+        <span>{{ comment.content }}</span>
+        <small class="comment-time">
+          {{ comment.createdAt | date: 'shortTime' }}
+        </small>
+      </div>
+    </li>
+  </ul>
+  
+
+<mat-form-field appearance="outline">
+  <mat-label>Adicionar comentário</mat-label>
+  <input matInput [(ngModel)]="newComment" name="newComment" (keyup.enter)="addComment()" />
+</mat-form-field>
+
+<div class="buttons">
+  <button mat-stroked-button type="button" (click)="close()">Fechar</button>
+  <button mat-raised-button color="primary" (click)="addComment()" [disabled]="!newComment.length">Salvar</button>
+</div>

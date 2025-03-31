@@ -31,10 +31,6 @@
     gap: 8px;
   }
   
-  .content {
-    padding: 24px;
-  }
-  
   .active-link {
     background-color: rgba(25, 118, 210, 0.1);
     border-left: 4px solid #1976d2;

@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { TeamsService } from '../../../core/services/teams.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-team-dialog',
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     FormsModule,
     MatFormFieldModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatButtonModule
   ],
@@ -23,20 +25,24 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./create-team-dialog.component.css']
 })
 export class CreateTeamDialogComponent {
-  team = {
-    name: '',
-    description: ''
-  };
+  form: FormGroup;
 
   constructor(
-    private http: HttpClient,
-    private dialogRef: MatDialogRef<CreateTeamDialogComponent>
-  ) {}
+    private dialogRef: MatDialogRef<CreateTeamDialogComponent>,
+    private teamsService: TeamsService,
+    private toastr: ToastrService,
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      name: '',
+      description: ''
+    });
+  }
 
   create() {
-    this.http.post('http://localhost:3000/teams', this.team).subscribe(() => {
-      this.dialogRef.close(true);
-    });
+    if (this.form.valid) {
+      this.dialogRef.close(this.form.value);
+    }
   }
 
   close() {

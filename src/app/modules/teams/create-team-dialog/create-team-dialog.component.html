@@ -1,18 +1,18 @@
 <h2>Novo Time</h2>
 
-<form (ngSubmit)="create()" #form="ngForm">
+<form [formGroup]="form">
   <mat-form-field appearance="outline">
     <mat-label>Nome do Time</mat-label>
-    <input matInput [(ngModel)]="team.name" name="name" required />
+    <input matInput formControlName="name" required />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Descrição</mat-label>
-    <input matInput [(ngModel)]="team.description" name="description" />
+    <input matInput formControlName="description" required />
   </mat-form-field>
 
   <div class="buttons">
     <button mat-stroked-button type="button" (click)="close()">Cancelar</button>
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Criar</button>
+    <button mat-raised-button color="primary" (click)="create()">Criar</button>
   </div>
 </form>

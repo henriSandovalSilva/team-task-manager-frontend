@@ -45,9 +45,7 @@ export class CreateTaskDialogComponent {
       teamId: this.data.teamId
     };
 
-    this.http.post('http://localhost:3000/tasks', payload).subscribe(() => {
-      this.dialogRef.close(true);
-    });
+    this.dialogRef.close(payload);
   }
 
   close() {

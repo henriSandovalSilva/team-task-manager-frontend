@@ -1,41 +1,41 @@
 <div class="team-detail-container" *ngIf="team">
-  <h2>{{ team.name }}</h2>
-
-  <div class="team-meta">
-    <p>
-      <mat-icon>person</mat-icon>
-      {{ team.createdBy?.email || '—' }}
-    </p>
-    <p>
-      <mat-icon>group</mat-icon>
-      {{ team.users?.length || 0 }} membros
-    </p>
-    <p>
-      <mat-icon>check_circle</mat-icon>
-      {{ team.tasks?.length || 0 }} tarefas
-    </p>
+  <div class="team-header">
+    
+    <button mat-button color="primary" class="btn-voltar" (click)="voltar()">
+      <mat-icon>arrow_back</mat-icon>
+      Voltar
+    </button>
+    <button mat-button color="primary" class="btn-editar" (click)="openEditTeamDialog()">
+      <mat-icon>edit</mat-icon>
+      Editar
+    </button>
   </div>
 
-  <h3 class="section-title">Membros</h3>
-  <ul class="list">
-    <li *ngFor="let user of team.users">
-      <mat-icon>person</mat-icon> {{ user.email }}
-    </li>
-  </ul>
+  <div class="team">
+    <h2>{{ team.name }}</h2>
 
-  <h3 class="section-title">Tarefas</h3>
-  <div class="task-header">
-    <h3 class="section-title">Tarefas</h3>
-    <button mat-raised-button color="primary" class="btn-nova-tarefa" (click)="openCreateTaskDialog()">
-      <mat-icon>add</mat-icon>
-      Nova Tarefa
-    </button>
-  </div>  
+    <div class="team-meta">
+      <p>
+        <mat-icon>person</mat-icon>
+        {{ team.createdBy?.email || '—' }}
+      </p>
+      <p>
+        <mat-icon>group</mat-icon>
+        {{ team.users?.length || 0 }} membros
+      </p>
+      <p>
+        <mat-icon>check_circle</mat-icon>
+        {{ team.tasks?.length || 0 }} tarefas
+      </p>
+    </div>
   
-  <ul class="list">
-    <li *ngFor="let task of team.tasks">
-      <mat-icon>assignment</mat-icon>
-      <strong>{{ task.title }}</strong> — {{ task.status }} ({{ task.priority }})
-    </li>
-  </ul>
+    <h3 class="section-title">Membros</h3>
+    <ul class="list">
+      <li *ngFor="let user of team.users">
+        <mat-icon>person</mat-icon> {{ user.email }}
+      </li>
+    </ul>
+
+    <app-tasks [teamId]="team.id" [users]="team.users"></app-tasks>
+  </div>
 </div>

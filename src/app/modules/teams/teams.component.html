@@ -1,14 +1,29 @@
-<div class="teams-header">
-  <button mat-raised-button color="primary" (click)="openCreateTeamDialog()">
+<div class="teams-container">
+
+<div class="team-header">
+  <button mat-button color="primary" class="btn-novo-time" (click)="openCreateTeamDialog()">
     <mat-icon>add</mat-icon>
-    Novo Time
+    Novo time
   </button>
 </div>
 
 <mat-list>
   <mat-list-item *ngFor="let team of teams" (click)="goToTeam(team.id)" class="team-list-item">
     <div class="team-info">
-      <h4>{{ team.name }}</h4>
+      <div class="team-header">
+        <h4>{{ team.name }}</h4>
+        <button
+          mat-icon-button
+          color="primary"
+          class="join-button"
+          (click)="toggleMembership($event, team)"
+          matTooltip="{{ team.isMember ? 'Sair do time' : 'Entrar no time' }}"
+        >
+          <mat-icon>{{ team.isMember ? 'check' : 'group_add' }}</mat-icon>
+        </button>
+
+      </div>
+  
       <p class="meta">
         <mat-icon inline class="meta-icon">person</mat-icon>
         {{ team.createdBy?.email || '—' }} |
@@ -18,3 +33,4 @@
     </div>
   </mat-list-item>
 </mat-list>
+</div>

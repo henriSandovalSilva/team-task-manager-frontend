@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +9,9 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { CreateTeamDialogComponent } from './create-team-dialog/create-team-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TeamsService } from '../../core/services/teams.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-teams',
@@ -22,39 +24,29 @@ import { MatListModule } from '@angular/material/list';
     MatInputModule,
     MatDialogModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTooltipModule
   ],
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.css']
 })
 export class TeamsComponent implements OnInit {
   teams: any[] = [];
-  editingId: string | null = null;
-  editedName: string = '';
 
-  constructor(private http: HttpClient, private router: Router, private dialog: MatDialog) {}
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+    private teamsService: TeamsService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.fetchTeams();
   }
 
   fetchTeams() {
-    this.http.get<any[]>('http://localhost:3000/teams').subscribe(data => {
+    this.teamsService.getAllTeams().subscribe(data => {
       this.teams = data;
-    });
-  }
-
-  edit(team: any) {
-    this.editingId = team.id;
-    this.editedName = team.name;
-  }
-
-  save(team: any) {
-    this.http.patch(`http://localhost:3000/teams/${team.id}`, {
-      name: this.editedName
-    }).subscribe(() => {
-      team.name = this.editedName;
-      this.editingId = null;
     });
   }
 
@@ -62,25 +54,65 @@ export class TeamsComponent implements OnInit {
     this.router.navigate(['/teams', teamId]);
   }
 
-  newTeam = {
-    name: '',
-    description: ''
-  };
-  
-  createTeam() {
-    this.http.post('http://localhost:3000/teams', this.newTeam).subscribe(() => {
-      this.newTeam = { name: '', description: '' };
-      this.fetchTeams();
-    });
+  toggleMembership(event: Event, team: any): void {
+    event.stopPropagation();
+
+    if (team.isMember) {
+      this.teamsService.leaveTeam(team.id).subscribe({
+        next: () => {
+          team.isMember = false;
+          this.toastr.info('Você saiu do time.', 'Ok', {
+            positionClass: 'toast-top-right',
+            timeOut: 3000
+          });
+        },
+        error: err => {
+          this.toastr.error(err.error?.message || 'Erro ao sair do time', 'Erro', {
+            positionClass: 'toast-top-right',
+            timeOut: 3000
+          });
+        }
+      });
+    } else {
+      this.teamsService.joinTeam(team.id).subscribe({
+        next: () => {
+          team.isMember = true;
+          this.toastr.success('Você agora é membro do time!', 'Sucesso', {
+            positionClass: 'toast-top-right',
+            timeOut: 3000
+          });
+        },
+        error: err => {
+          this.toastr.error(err.error?.message || 'Erro ao entrar no time', 'Erro', {
+            positionClass: 'toast-top-right',
+            timeOut: 3000
+          });
+        }
+      });
+    }
   }
 
   openCreateTeamDialog() {
     const dialogRef = this.dialog.open(CreateTeamDialogComponent);
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.fetchTeams();
-      }
-    });
+        this.teamsService.createTeam(result).subscribe({
+          next: () => {
+            this.toastr.success('Time criado!', 'Sucesso', {
+              positionClass: 'toast-top-right',
+              timeOut: 3000
+            });
+
+            this.fetchTeams()
+          },
+          error: err => {
+            this.toastr.error(err.error?.message || 'Erro ao criar o time', 'Erro', {
+              positionClass: 'toast-top-right',
+              timeOut: 3000
+            });
+          }
+        });
+    }});
   }
 }
